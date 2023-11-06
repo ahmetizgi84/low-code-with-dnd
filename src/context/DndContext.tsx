@@ -1,4 +1,4 @@
-import { AcceptedTypes, ComponentTypes, IDndContextState, IDndContextType, TComponents, TLayout } from "@/common/types";
+import { IDndContextState, IDndContextType, TComponents, TLayout } from "@/common/types";
 import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
 
 const initialState: IDndContextState = {
