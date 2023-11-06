@@ -79,3 +79,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .one-a-hundred {
+    flex: 1 1 100%;
+  }
+
+  .isLast {
+    flex: 1 1 auto;
+  }
+
+  .active {
+    background: salmon;
+    transition: 100ms all;
+  }
+}
