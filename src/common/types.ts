@@ -47,6 +47,7 @@ export interface IDndContextType {
   state: IDndContextState;
   setLayout: (p: TLayout[]) => void;
   setComponents: (params: TComponents) => void;
+  handleDrop: (dropZone: any, item: any) => void;
 }
 
 export type TSideBarItem = {
