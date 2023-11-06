@@ -33,10 +33,10 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
     <div
       ref={ref}
       style={{ ...style, opacity }}
-      className="px-4 py-2 bg-[var(--background)] cursor-move border border-red-500 p-0 relative after:content-['Row'] after:bg-red-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
+      className="__ROW__ px-2 py-2 bg-[var(--background)] cursor-move border border-red-500 relative after:content-['Row'] after:bg-red-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
     >
       {data.id}
-      <div className="flex px-0 py-5">
+      <div className="flex px-0 py-6">
         {data.children.map((column, index) => {
           const currentPath = `${path}-${index}`;
 
@@ -48,7 +48,7 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
                   childrenCount: data.children.length,
                 }}
                 onDrop={handleDrop}
-                className="w-10 h-auto"
+                className="w-10 h-auto __DROPZONE__"
               />
               {renderColumn(column, currentPath)}
             </React.Fragment>
@@ -60,7 +60,7 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
             childrenCount: data.children.length,
           }}
           onDrop={handleDrop}
-          className="w-10 h-auto isLast"
+          className="w-10 h-auto isLast __DROPZONE__"
         />
       </div>
     </div>

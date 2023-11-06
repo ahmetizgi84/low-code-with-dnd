@@ -112,7 +112,7 @@ function Apps() {
         </div>
 
         <div className="flex flex-1 flex-col">
-          <div className="flex-auto px-5 m-5 border border-green-500 relative after:content-['Page'] after:bg-green-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm">
+          <div className="__PAGE__ flex-auto px-5 m-5 border border-green-500 relative after:content-['Page'] after:bg-green-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm">
             {/* <pre>{JSON.stringify(state, null, 2)}</pre> */}
 
             {layout.map((row, index) => {
@@ -125,6 +125,7 @@ function Apps() {
                       childrenCount: layout.length,
                     }}
                     onDrop={handleDrop}
+                    className="__DROPZONE-LAYOUT-MAP__"
                   />
                   {renderRow(row, currentPath)}
                 </React.Fragment>
@@ -137,7 +138,7 @@ function Apps() {
                 childrenCount: layoutLength,
               }}
               onDrop={handleDrop}
-              className="dropZone"
+              className="__DROPZONE__"
             />
           </div>
         </div>

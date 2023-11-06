@@ -32,7 +32,7 @@ const Column: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
     <div
       ref={ref}
       style={{ ...style, opacity }}
-      className="py-2 px-4 bg-[var(--background)] cursor-move border relative border-blue-500 one-a-hundred p-2 after:content-['Column'] after:bg-blue-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
+      className="__COLUMN__ py-2 px-4 bg-[var(--background)] cursor-move border relative border-blue-500 one-a-hundred p-2 after:content-['Column'] after:bg-blue-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
     >
       {data.id}
       {data.children.map((component, index) => {
@@ -46,6 +46,7 @@ const Column: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
                 childrenCount: data.children.length,
               }}
               onDrop={handleDrop}
+              className="__DROPZONE__"
             />
             {renderComponent(component, currentPath)}
           </React.Fragment>
@@ -57,7 +58,7 @@ const Column: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
           childrenCount: data.children.length,
         }}
         onDrop={handleDrop}
-        className="isLast"
+        className="isLast __DROPZONE__"
       />
     </div>
   );
