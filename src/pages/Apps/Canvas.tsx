@@ -2,7 +2,6 @@ import { Fragment } from "react";
 
 import { useDndContext } from "@/context/DndContext";
 import DropZone from "@/components/DropZone";
-import { TLayout } from "@/common/types";
 import Row from "@/components/Row";
 
 function Canvas() {
@@ -10,10 +9,6 @@ function Canvas() {
   const layoutLength = state.layout.length;
   const layout = state.layout;
   const components = state.components;
-
-  const renderRow = (row: TLayout, currentPath: string) => {
-    return <Row key={row.id} data={row} handleDrop={handleDrop} components={components} path={currentPath} />;
-  };
 
   return (
     <div className="flex flex-1 flex-col">
@@ -30,7 +25,7 @@ function Canvas() {
                 onDrop={handleDrop}
                 className="__DROPZONE-LAYOUT-MAP__"
               />
-              {renderRow(row, currentPath)}
+              <Row data={row} handleDrop={handleDrop} components={components} path={currentPath} />
             </Fragment>
           );
         })}

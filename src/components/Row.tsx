@@ -1,8 +1,9 @@
 import React, { useRef, FC } from "react";
 import { useDrag } from "react-dnd";
+
 import DropZone from "./DropZone";
 import Column from "./Column";
-import { AcceptedTypes, TLayout, TRowCol } from "@/common/types";
+import { AcceptedTypes, TRowCol } from "@/common/types";
 
 const style = {};
 
@@ -25,10 +26,6 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
   const opacity = isDragging ? 0 : 1;
   drag(ref);
 
-  const renderColumn = (column: TLayout, currentPath: string) => {
-    return <Column key={column.id} data={column} components={components} handleDrop={handleDrop} path={currentPath} />;
-  };
-
   return (
     <div
       ref={ref}
@@ -50,7 +47,7 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
                 onDrop={handleDrop}
                 className="w-10 h-auto __DROPZONE__"
               />
-              {renderColumn(column, currentPath)}
+              <Column data={column} components={components} handleDrop={handleDrop} path={currentPath} />
             </React.Fragment>
           );
         })}
