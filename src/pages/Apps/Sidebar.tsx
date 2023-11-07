@@ -1,5 +1,5 @@
 import { SIDEBAR_ITEMS } from "@/common/constants";
-import SideBarItem from "@/components/SideBarItem";
+import DraggableItem from "@/components/DraggableItem";
 
 function SideBar() {
   return (
@@ -10,7 +10,7 @@ function SideBar() {
 
           <div className="mt-4 flex flex-col space-y-2">
             {Object.values(SIDEBAR_ITEMS).map((sideBarItem) => (
-              <SideBarItem key={sideBarItem.id} data={sideBarItem} />
+              <DraggableItem key={sideBarItem.id} data={sideBarItem} />
             ))}
           </div>
         </div>

@@ -12,7 +12,7 @@ function Canvas() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="__PAGE__ flex-auto px-5 m-5 border border-green-500 relative after:content-['Page'] after:bg-green-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm">
+      <div className="__PAGE__ flex-auto px-5 m-5 border border-blue-500 relative after:content-['Page'] after:bg-blue-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm">
         {layout.map((row, index) => {
           const currentPath = `${index}`;
           return (

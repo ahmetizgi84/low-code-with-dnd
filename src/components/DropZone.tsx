@@ -1,13 +1,24 @@
 import type { FC } from "react";
 import classNames from "classnames";
 import { useDrop } from "react-dnd";
-import { AcceptedTypes } from "@/common/types";
+import { AcceptedTypes, TComponent } from "@/common/types";
 
-const ACCEPTS = [AcceptedTypes.SIDEBAR_ITEM, AcceptedTypes.COMPONENT, AcceptedTypes.ROW, AcceptedTypes.COLUMN];
+const ACCEPTS = [
+  AcceptedTypes.SIDEBAR_ITEM,
+  AcceptedTypes.COMPONENT,
+  AcceptedTypes.ROW,
+  AcceptedTypes.COLUMN,
+  AcceptedTypes.BUTTON,
+];
+
+type TData = {
+  path: string;
+  childrenCount: number;
+};
 
 type TDropZone = {
-  data: any;
-  onDrop: any;
+  data: TData;
+  onDrop: (data: TData, item: TComponent) => void;
   className?: string;
 };
 
@@ -18,7 +29,7 @@ const DropZone: FC<TDropZone> = ({ data, onDrop, className }) => {
     accept: ACCEPTS,
 
     // Optional. Called when a compatible item is dropped on the target.
-    drop: (item) => {
+    drop: (item: TComponent) => {
       onDrop(data, item);
     },
 

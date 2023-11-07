@@ -1,25 +1,19 @@
-// export const SIDEBAR_ITEM = "sidebarItem";
-// export const ROW = "row";
-// export const COLUMN = "column";
-// export const COMPONENT = "component";
-
 export enum AcceptedTypes {
   SIDEBAR_ITEM = "sidebarItem",
   ROW = "row",
   COLUMN = "column",
   COMPONENT = "component",
+  BUTTON = "button",
 }
 
 export enum ComponentTypes {
+  ROW = "row",
+  COLUMN = "column",
   INPUT = "input",
-  IMAGE = "image",
-  EMAIL = "email",
-  NAME = "name",
-  PHONE = "phone",
+  BUTTON = "button",
+  AVATAR = "avatar",
+  LABEL = "label",
 }
-
-// export type TTypes = typeof ROW | typeof COLUMN | typeof COMPONENT | typeof SIDEBAR_ITEM;
-// export type ComponentType = "input" | "image" | "email" | "name" | "phone";
 
 export type TLayout = {
   type: AcceptedTypes;
@@ -32,6 +26,9 @@ export type TComponent = {
   id: string;
   type: ComponentTypes;
   content: string;
+  children: string[];
+  parent: string;
+  props: any;
 };
 
 export type TComponents = {

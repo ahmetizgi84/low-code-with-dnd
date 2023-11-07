@@ -109,6 +109,7 @@ function DndProvider({ children }: { children: ReactNode }) {
     (dropZone: any, item: any) => {
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
+      console.log("itemm: ", item);
 
       const newItem = { id: item.id, type: item.type, children: null };
 
@@ -124,8 +125,10 @@ function DndProvider({ children }: { children: ReactNode }) {
           ...item.component,
         };
         const newItem = {
+          ...item,
           id: newComponent.id,
-          type: AcceptedTypes.COMPONENT,
+          type: item.component.type,
+          // type: AcceptedTypes.COMPONENT,
         };
         setComponents({
           ...components,

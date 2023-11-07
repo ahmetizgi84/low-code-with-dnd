@@ -30,9 +30,8 @@ const Row: FC<TRowCol> = ({ data, components, handleDrop, path }) => {
     <div
       ref={ref}
       style={{ ...style, opacity }}
-      className="__ROW__ px-2 py-2 bg-[var(--background)] cursor-move border border-red-500 relative after:content-['Row'] after:bg-red-500 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
+      className="__ROW__ px-2 py-2 bg-[var(--background)] cursor-move border border-gray-800 relative after:content-['Row'] after:bg-gray-800 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
     >
-      {data.id}
       <div className="flex px-0 py-6">
         {data.children.map((column, index) => {
           const currentPath = `${path}-${index}`;

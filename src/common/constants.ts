@@ -6,40 +6,48 @@ export const SIDEBAR_ITEMS = [
     id: uniqid(),
     type: AcceptedTypes.SIDEBAR_ITEM,
     component: {
+      type: ComponentTypes.ROW, // sidebarda
+      content: "row",
+    },
+  },
+  {
+    id: uniqid(),
+    type: AcceptedTypes.SIDEBAR_ITEM,
+    component: {
+      type: ComponentTypes.COLUMN,
+      content: "column",
+    },
+  },
+  {
+    id: uniqid(),
+    type: AcceptedTypes.SIDEBAR_ITEM,
+    component: {
       type: ComponentTypes.INPUT,
-      content: "Some input",
+      content: "input",
     },
   },
   {
     id: uniqid(),
     type: AcceptedTypes.SIDEBAR_ITEM,
     component: {
-      type: ComponentTypes.NAME,
-      content: "Some name",
+      type: ComponentTypes.BUTTON, // sidebarda
+      content: "button", // editörde
     },
   },
   {
     id: uniqid(),
     type: AcceptedTypes.SIDEBAR_ITEM,
     component: {
-      type: ComponentTypes.EMAIL,
-      content: "Some email",
+      type: ComponentTypes.AVATAR, // sidebarda
+      content: "button", // editörde
     },
   },
   {
     id: uniqid(),
     type: AcceptedTypes.SIDEBAR_ITEM,
     component: {
-      type: ComponentTypes.PHONE,
-      content: "Some phone",
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.IMAGE,
-      content: "Some image",
+      type: ComponentTypes.LABEL, // sidebarda
+      content: "label", // editörde
     },
   },
 ];
