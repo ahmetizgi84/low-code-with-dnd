@@ -3,7 +3,10 @@ export enum AcceptedTypes {
   ROW = "row",
   COLUMN = "column",
   COMPONENT = "component",
+  INPUT = "input",
   BUTTON = "button",
+  AVATAR = "avatar",
+  LABEL = "label",
 }
 
 export enum ComponentTypes {

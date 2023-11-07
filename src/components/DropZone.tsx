@@ -8,7 +8,10 @@ const ACCEPTS = [
   AcceptedTypes.COMPONENT,
   AcceptedTypes.ROW,
   AcceptedTypes.COLUMN,
+  AcceptedTypes.INPUT,
   AcceptedTypes.BUTTON,
+  AcceptedTypes.AVATAR,
+  AcceptedTypes.LABEL,
 ];
 
 type TData = {
