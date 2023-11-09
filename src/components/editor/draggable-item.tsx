@@ -1,8 +1,8 @@
-import { TSideBarItem } from "@/common/types";
 import { useDrag } from "react-dnd";
 import { GripVertical } from "lucide-react";
+import { IComponent } from "@/common/types";
 
-const DraggableItem = ({ data }: { data: TSideBarItem }) => {
+const DraggableItem = ({ data }: { data: IComponent }) => {
   const [{ opacity }, drag] = useDrag({
     type: data.type,
     item: data,
@@ -20,8 +20,9 @@ const DraggableItem = ({ data }: { data: TSideBarItem }) => {
   return (
     <div {...boxProps}>
       <GripVertical size={20} className="mr-2" />
-      <span>{data.component.type}</span>
+      <span>{data.type}</span>
     </div>
   );
 };
+
 export default DraggableItem;

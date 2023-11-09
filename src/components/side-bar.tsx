@@ -1,7 +1,9 @@
-import { SIDEBAR_ITEMS } from "@/common/constants";
-import DraggableItem from "@/components/DraggableItem";
+import DraggableItem from "@/components/editor/draggable-item";
+import { useDndContext } from "@/context/DndContext";
 
 function SideBar() {
+  const { state } = useDndContext();
+  const { components } = state;
   return (
     <div className="flex-initial w-[310px] bg-background-rgba min-h-full px-4">
       <div className="flex items-center gap-2 py-2">
@@ -9,8 +11,8 @@ function SideBar() {
           <p className="text-sm font-semibold">Ready to use components</p>
 
           <div className="mt-4 flex flex-col space-y-2">
-            {Object.values(SIDEBAR_ITEMS).map((sideBarItem) => (
-              <DraggableItem key={sideBarItem.id} data={sideBarItem} />
+            {Object.values(components).map((sideBarItem) => (
+              <DraggableItem key={sideBarItem.data.id} data={sideBarItem} />
             ))}
           </div>
         </div>

@@ -1,43 +1,33 @@
 import type { FC } from "react";
 import classNames from "classnames";
 import { useDrop } from "react-dnd";
-import { AcceptedTypes, TComponent } from "@/common/types";
 
-const ACCEPTS = [
-  AcceptedTypes.SIDEBAR_ITEM,
-  AcceptedTypes.COMPONENT,
-  AcceptedTypes.ROW,
-  AcceptedTypes.COLUMN,
-  AcceptedTypes.INPUT,
-  AcceptedTypes.BUTTON,
-  AcceptedTypes.AVATAR,
-  AcceptedTypes.LABEL,
-];
-
-type TData = {
-  path: string;
-  childrenCount: number;
-};
+import { useDndContext } from "@/context/DndContext";
+import { AcceptedComponentList, IComponent } from "@/common/types";
 
 type TDropZone = {
-  data: TData;
-  onDrop: (data: TData, item: TComponent) => void;
+  id: string;
   className?: string;
 };
 
-const DropZone: FC<TDropZone> = ({ data, onDrop, className }) => {
+const DropZone: FC<TDropZone> = ({ className, id, ...rest }) => {
+  const { handleDrop } = useDndContext();
+
   const [{ isOver, canDrop }, drop] = useDrop({
     // Required. A string, a symbol, or an array of either.
     // This drop target will only react to the items produced by the drag sources of the specified type or types.
-    accept: ACCEPTS,
+    // accept: ACCEPTS,
+    accept: AcceptedComponentList,
 
     // Optional. Called when a compatible item is dropped on the target.
-    drop: (item: TComponent) => {
-      onDrop(data, item);
+    drop: (item: IComponent) => {
+      handleDrop(item, id);
     },
 
     // Optional. Use it to specify whether the drop target is able to accept the item.
-    canDrop: (item: any, _) => {
+
+    /*
+    canDrop: (item: IComponent, _) => {
       const dropZonePath = data.path;
       const splitDropZonePath = dropZonePath.split("-");
       const itemPath = item.path;
@@ -83,6 +73,7 @@ const DropZone: FC<TDropZone> = ({ data, onDrop, className }) => {
 
       return true;
     },
+    */
 
     // Optional. The collecting function. It should return a plain object of the props to return for injection into your component.
     // It receives two parameters, monitor and props.
@@ -94,6 +85,6 @@ const DropZone: FC<TDropZone> = ({ data, onDrop, className }) => {
 
   const isActive = isOver && canDrop;
 
-  return <div className={classNames("h-10 transition-all", { active: isActive }, className)} ref={drop} />;
+  return <div className={classNames("h-10 transition-all", { active: isActive }, className)} ref={drop} {...rest} />;
 };
-export default DropZone;
+export { DropZone };

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const rowVariants = cva(
-  "__ROW__ px-2 py-2 bg-[var(--background)] cursor-move border border-gray-800 relative after:content-['Row'] after:bg-gray-800 after:absolute after:w-20 after:h-5 after:text-center after:-top-5 after:-left-[1px] after:text-white after:text-sm"
+  "flex p-4 bg-[var(--background)] cursor-move border border-gray-800 relative after:content-['Row'] after:bg-gray-800/30 after:absolute after:w-20 after:h-3 after:text-center after:-top-0 after:-left-[1px] after:text-white after:text-[8px]"
 );
 
 export interface RowProps extends React.HtmlHTMLAttributes<HTMLDivElement>, VariantProps<typeof rowVariants> {

@@ -1,79 +1,12 @@
 import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
-import uniqid from "uniqid";
 
-import {
-  handleMoveSidebarComponentIntoParent,
-  handleMoveToDifferentParent,
-  handleMoveWithinParent,
-} from "@/common/helpers";
-import { AcceptedTypes, IDndContextState, IDndContextType, TComponents, TLayout } from "@/common/types";
+import { handleMoveSidebarComponentIntoLayout } from "@/common/helpers";
+import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
+import mockResponse, { mockSideBarItems } from "@/common/mock.data";
 
 const initialState: IDndContextState = {
-  // layout: [
-  //   {
-  //     type: AcceptedTypes.ROW,
-  //     id: "row0",
-  //     children: [
-  //       {
-  //         type: AcceptedTypes.COLUMN,
-  //         id: "column0",
-  //         children: [
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component0",
-  //           },
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component1",
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         type: AcceptedTypes.COLUMN,
-  //         id: "column1",
-  //         children: [
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component2",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     type: AcceptedTypes.ROW,
-  //     id: "row1",
-  //     children: [
-  //       {
-  //         type: AcceptedTypes.COLUMN,
-  //         id: "column2",
-  //         children: [
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component3",
-  //           },
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component0",
-  //           },
-  //           {
-  //             type: AcceptedTypes.COMPONENT,
-  //             id: "component2",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  // ],
-  // components: {
-  //   component0: { id: "component0", type: ComponentTypes.INPUT, content: "Some input" },
-  //   component1: { id: "component1", type: ComponentTypes.IMAGE, content: "Some image" },
-  //   component2: { id: "component2", type: ComponentTypes.EMAIL, content: "Some email" },
-  //   component3: { id: "component3", type: ComponentTypes.NAME, content: "Some name" },
-  //   component4: { id: "component4", type: ComponentTypes.PHONE, content: "Some phone" },
-  // },
-  layout: [],
-  components: {},
+  layout: mockResponse,
+  components: [...mockSideBarItems],
 };
 
 const initialValue: IDndContextType = {
@@ -95,16 +28,25 @@ const DndContext = createContext<IDndContextType>(initialValue);
 
 function DndProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { layout, components } = state;
+  const { layout } = state;
 
-  const setLayout = useCallback((payload: TLayout[]) => {
+  const setLayout = useCallback((payload: IComponent) => {
     dispatch({ type: "SET_LAYOUT", payload });
   }, []);
 
-  const setComponents = useCallback((payload: TComponents) => {
+  const setComponents = useCallback((payload: IComponent[]) => {
     dispatch({ type: "SET_COMPONENTS", payload });
   }, []);
 
+  const handleDrop = useCallback(
+    (newItem: IComponent, dropZoneId: string) => {
+      const newLayout = handleMoveSidebarComponentIntoLayout(layout, newItem, dropZoneId);
+      setLayout(newLayout);
+    },
+    [layout]
+  );
+
+  /*
   const handleDrop = useCallback(
     (dropZone: any, item: any) => {
       const splitDropZonePath = dropZone.path.split("-");
@@ -162,6 +104,7 @@ function DndProvider({ children }: { children: ReactNode }) {
     },
     [layout, components]
   );
+  */
 
   const initialValue: IDndContextType = {
     state,

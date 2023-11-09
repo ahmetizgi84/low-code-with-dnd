@@ -24,8 +24,7 @@ function Panel() {
           </Button>
         </div>
       </div>
-
-      <pre>layout={JSON.stringify(state.layout, null, 1)}</pre>
+      <pre className="text-sm">layout={JSON.stringify(state.layout, null, 1)}</pre>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import SideBar from "./SideBar";
-import Panel from "./Panel";
+import Panel from "@/components/panel";
 import PageTop from "./PageTop";
-import Canvas from "./Canvas";
+import Canvas from "@/components/canvas";
+import SideBar from "@/components/side-bar";
 
 function Apps() {
   return (

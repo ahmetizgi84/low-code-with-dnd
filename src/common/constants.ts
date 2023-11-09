@@ -1,53 +1,16 @@
-import uniqid from "uniqid";
-import { AcceptedTypes, ComponentTypes } from "./types";
+// import { Button, Card, Container, Divider, Input } from "@chakra-ui/react";
 
-export const SIDEBAR_ITEMS = [
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.ROW, // sidebarda
-      content: "row",
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.COLUMN,
-      content: "column",
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.INPUT,
-      content: "input",
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.BUTTON, // sidebarda
-      content: "button", // editörde
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.AVATAR, // sidebarda
-      content: "button", // editörde
-    },
-  },
-  {
-    id: uniqid(),
-    type: AcceptedTypes.SIDEBAR_ITEM,
-    component: {
-      type: ComponentTypes.LABEL, // sidebarda
-      content: "label", // editörde
-    },
-  },
-];
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/editor/container";
+import { Row } from "@/components/editor/row";
+import { Column } from "@/components/editor/column";
+import { DropZone } from "@/components/editor/drop-zone";
+
+export const Components = {
+  Container,
+  Row,
+  Column,
+  Button,
+  DropZone,
+  div: "div",
+};

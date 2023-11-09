@@ -83,7 +83,8 @@ async function loginLoader() {
   const loginData = { user: "John Doe" };
 
   if (loginData != null) {
-    return redirect("/builder/portal/apps");
+    // return redirect("/builder/portal/apps");
+    return redirect("/builder/portal/users");
   }
   return null;
 }
