@@ -21,7 +21,7 @@ const DropZone: FC<TDropZone> = ({ className, id, ...rest }) => {
 
     // Optional. Called when a compatible item is dropped on the target.
     drop: (item: IComponent) => {
-      handleDrop(item, id);
+      handleDrop(item, "Container", id);
     },
 
     // Optional. Use it to specify whether the drop target is able to accept the item.

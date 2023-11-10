@@ -1,4 +1,4 @@
-import DraggableItem from "@/components/editor/draggable-item";
+import DraggableItem from "@/components/draggable-item";
 import { useDndContext } from "@/context/DndContext";
 
 function SideBar() {
@@ -11,8 +11,8 @@ function SideBar() {
           <p className="text-sm font-semibold">Ready to use components</p>
 
           <div className="mt-4 flex flex-col space-y-2">
-            {Object.values(components).map((sideBarItem) => (
-              <DraggableItem key={sideBarItem.data.id} data={sideBarItem} />
+            {Object.values(components).map((componentType) => (
+              <DraggableItem key={componentType} componentType={componentType} />
             ))}
           </div>
         </div>

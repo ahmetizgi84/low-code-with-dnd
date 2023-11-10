@@ -1,221 +1,94 @@
 import uniqid from "uniqid";
-import { IComponent } from "./types";
+import { ComponentTypes, IComponent } from "./types";
 
-export const mockResponse: IComponent = {
-  type: "Container",
-  data: {
-    id: `container-${uniqid()}`,
-    items: [
+// export const mockLayout: IComponent[] = [
+//   {
+//     type: "Container",
+//     parent: "root",
+//     id: "container",
+//     children: [],
+//     props: {},
+//   },
+// ];
+
+export const mockLayout: IComponent[] = [
+  {
+    type: "Container",
+    parent: "root",
+    id: `container`,
+    children: [
       {
-        type: "DropZone",
-        data: {
-          id: `dropZone-${uniqid()}`,
-        },
-      },
-    ],
-  },
-};
-
-// Chakra layout object
-/*
-components = {
- "root": {
-  "id": "root",
-  "parent": "root",
-  "type": "Box",
-  "children": [],
-  "props": {}
- }
-}
-*/
-
-// react-dnd-example-main layout array
-/*
-layout = [
-   {
-      "type": "row",
-      "id": "_165esGeZF",
-      "children": [
-         {
-            "type": "column",
-            "id": "q8E3Peid6u",
-            "children": [
-               {
-                  "id": "8nLZBAwoR",
-                  "type": "component"
-               }
-            ]
-         }
-      ]
-   }
-]
-*/
-
-// Bizdeki
-/*
-  layout={
- "type": "Container",
- "data": {
-  "id": "container-lorfl16u",
-  "items": [
-   {
-    "type": "DropZone",
-    "data": {
-     "id": "dropZone-lorfl16v"
-    }
-   }
-  ]
- }
-}
-
-*/
-
-/*
-export const mockResponse: IComponent = {
-  type: "Container",
-  data: {
-    id: `container-${uniqid()}`,
-    items: [
-      {
-        type: "DropZone",
-        data: {
-          id: `dropZone-${uniqid()}`,
+        type: "Button",
+        parent: "Container",
+        // id: `button-${uniqid()}`,
+        id: `button-1`,
+        children: [],
+        props: {
+          variant: "destructive",
+          size: "lg",
+          title: "Hey My Button",
         },
       },
       {
         type: "Row",
-        data: {
-          id: `row-${uniqid()}`,
-          items: [
-            {
-              type: "DropZone",
-              data: {
-                id: `dropZone-${uniqid()}`,
-                className: "w-10 h-auto",
+        parent: "Container",
+        // id: `button-${uniqid()}`,
+        id: `row-1`,
+        children: [
+          {
+            type: "Column",
+            parent: "row-1",
+            // id: `button-${uniqid()}`,
+            id: `column-1`,
+            children: [
+              {
+                type: "Button",
+                parent: "column-1",
+                // id: `button-${uniqid()}`,
+                id: `button-2`,
+                children: [],
+                props: {
+                  variant: "outline",
+                  size: "lg",
+                  title: "This is Children button",
+                },
               },
-            },
-            {
-              type: "Column",
-              data: {
-                id: `column-${uniqid()}`,
-                items: [
-                  {
-                    type: "DropZone",
-                    data: {
-                      id: `dropZone-${uniqid()}`,
-                    },
-                  },
-                  {
-                    type: "Button",
-                    data: {
-                      id: `button-${uniqid()}`,
-                      children: "Button 1",
-                      variant: "destructive",
-                      size: "lg",
-                      asChild: false,
-                      action: {
-                        type: "call",
-                        url: "https://pokeapi.co/api/v2/",
-                      },
-                    },
-                  },
-                  {
-                    type: "Button",
-                    data: {
-                      id: `button-${uniqid()}`,
-                      children: "Button 2",
-                      variant: "secondary",
-                      size: "lg",
-                      asChild: false,
-                      action: {
-                        type: "call",
-                        url: "https://pokeapi.co/api/v2/",
-                      },
-                    },
-                  },
-                  {
-                    type: "DropZone",
-                    data: {
-                      id: `dropZone-${uniqid()}`,
-                    },
-                  },
-                ],
+              {
+                type: "Button",
+                parent: "column-1",
+                // id: `button-${uniqid()}`,
+                id: `button-3`,
+                children: [],
+                props: {
+                  variant: "destructive",
+                  size: "lg",
+                  title: "Hey My Button",
+                },
               },
+            ],
+            props: {
+              is_droppable: true,
             },
-            {
-              type: "DropZone",
-              data: {
-                id: `dropZone-${uniqid()}`,
-                className: "w-10 h-auto",
-              },
-            },
-          ],
-        },
-      },
-      {
-        type: "DropZone",
-        data: {
-          id: `dropZone-${uniqid()}`,
-        },
+          },
+        ],
+        props: {},
       },
     ],
-  },
-};
-*/
-
-export const mockSideBarItems: IComponent[] = [
-  {
-    type: "Row",
-    data: {
-      id: `Row-${uniqid()}`,
-      items: [
-        {
-          type: "DropZone",
-          data: {
-            id: `dropZone-${uniqid()}`,
-            className: "w-10",
-          },
-        },
-      ],
-    },
-  },
-  {
-    type: "Column",
-    data: {
-      id: `Column-${uniqid()}`,
-      items: [
-        {
-          type: "DropZone",
-          data: {
-            id: `dropZone-${uniqid()}`,
-          },
-        },
-      ],
-    },
-  },
-
-  {
-    type: "Button",
-    data: {
-      id: `Button-${uniqid()}`,
-    },
+    props: {},
   },
 ];
 
-export const defaultMockLayout: IComponent = {
-  type: "Container",
-  data: {
-    id: `container-${uniqid()}`,
-    items: [
-      {
-        type: "DropZone",
-        data: {
-          id: `dropZone-${uniqid()}`,
-        },
-      },
-    ],
+export const mockComponents: ComponentTypes[] = ["Row", "Column", "Button"];
+
+export const defaultMockLayout: IComponent[] = [
+  {
+    type: "Container",
+    parent: "root",
+    id: `root-${uniqid()}`,
+    children: [],
+    props: {},
   },
-};
+];
 
 /*
 const mockResponse2: IComponent = {
@@ -306,4 +179,4 @@ const mockResponse2: IComponent = {
 };
 */
 
-export default mockResponse;
+export default mockLayout;

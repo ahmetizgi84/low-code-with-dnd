@@ -1,11 +1,11 @@
 import { useDrag } from "react-dnd";
 import { GripVertical } from "lucide-react";
-import { IComponent } from "@/common/types";
+import { ComponentTypes } from "@/common/types";
 
-const DraggableItem = ({ data }: { data: IComponent }) => {
+const DraggableItem = ({ componentType }: { componentType: ComponentTypes }) => {
   const [{ opacity }, drag] = useDrag({
-    type: data.type,
-    item: data,
+    type: componentType,
+    item: { type: componentType },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.4 : 1,
     }),
@@ -20,7 +20,7 @@ const DraggableItem = ({ data }: { data: IComponent }) => {
   return (
     <div {...boxProps}>
       <GripVertical size={20} className="mr-2" />
-      <span>{data.type}</span>
+      <span>{componentType}</span>
     </div>
   );
 };
