@@ -1,16 +1,46 @@
 import uniqid from "uniqid";
 import { ComponentTypes, IComponent } from "./types";
 
-// export const mockLayout: IComponent[] = [
-//   {
-//     type: "Container",
-//     parent: "root",
-//     id: "container",
-//     children: [],
-//     props: {},
-//   },
-// ];
+export const mockLayout: IComponent[] = [
+  {
+    type: "Container",
+    parent: "root",
+    id: "container",
+    children: [
+      {
+        type: "Row",
+        parent: "container",
+        id: `row-1`,
+        children: [
+          {
+            type: "Column",
+            parent: "row-1",
+            id: `column-1`,
+            children: [
+              {
+                type: "Button",
+                parent: "column-1",
+                // id: `button-${uniqid()}`,
+                id: `button-1`,
+                children: [],
+                props: {
+                  variant: "outline",
+                  size: "lg",
+                  title: "This is Children button",
+                },
+              },
+            ],
+            props: {},
+          },
+        ],
+        props: {},
+      },
+    ],
+    props: {},
+  },
+];
 
+/*
 export const mockLayout: IComponent[] = [
   {
     type: "Container",
@@ -66,9 +96,7 @@ export const mockLayout: IComponent[] = [
                 },
               },
             ],
-            props: {
-              is_droppable: true,
-            },
+            props: {},
           },
         ],
         props: {},
@@ -77,8 +105,43 @@ export const mockLayout: IComponent[] = [
     props: {},
   },
 ];
+*/
 
-export const mockComponents: ComponentTypes[] = ["Row", "Column", "Button"];
+export const acceptedComponents: ComponentTypes[] = ["Row", "Column", "Button", "Input"];
+export const mockComponents: IComponent[] = [
+  {
+    type: "Row",
+    parent: "",
+    id: `row-${uniqid()}`,
+    children: [],
+    props: {},
+  },
+  {
+    type: "Column",
+    parent: "",
+    id: `column-${uniqid()}`,
+    children: [],
+    props: {},
+  },
+  {
+    type: "Button",
+    parent: "",
+    id: `button-${uniqid()}`,
+    children: [],
+    props: {
+      variant: "destructive",
+      size: "lg",
+      title: "Hello Button",
+    },
+  },
+  {
+    type: "Input",
+    parent: "",
+    id: `input-${uniqid()}`,
+    children: [],
+    props: {},
+  },
+];
 
 export const defaultMockLayout: IComponent[] = [
   {

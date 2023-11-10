@@ -1,15 +1,13 @@
-import uniqid from "uniqid";
-
-import { mockComponents } from "@/common/mock.data";
-import { ComponentTypes, IComponent } from "@/common/types";
+import { acceptedComponents } from "@/common/mock.data";
 import { useDndContext } from "@/context/DndContext";
 import { useDrop, DropTargetMonitor } from "react-dnd";
 
-export const useDropComponent = (parent: ComponentTypes, canDrop: boolean = true) => {
+export const useDropComponent = (id: string, canDrop: boolean = true) => {
   const { handleDrop } = useDndContext();
+
   //
   const [{ isOver }, drop] = useDrop({
-    accept: mockComponents,
+    accept: acceptedComponents,
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
@@ -19,23 +17,12 @@ export const useDropComponent = (parent: ComponentTypes, canDrop: boolean = true
         return;
       }
 
-      if (parent == "Container") {
-        const newComponent: IComponent = {
-          type: item.type,
-          parent,
-          id: `${item.type}-${uniqid()}`,
-          children: [],
-          props: {},
-        };
-        handleDrop(newComponent, parent, "container");
-      }
-
-      // Rest...
+      handleDrop(item, id);
     },
     canDrop: () => canDrop,
   });
 
-  const isActive = isOver && canDrop ? "bg-red-500" : undefined;
+  const isActive = isOver && canDrop ? "bg-red-100" : undefined;
 
   return { drop, isActive };
 };

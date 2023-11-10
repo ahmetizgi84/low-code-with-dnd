@@ -1,8 +1,8 @@
 import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
 
-// import { handleMoveSidebarComponentIntoLayout } from "@/common/helpers";
-import { IDndContextState, IDndContextType, IComponent, ComponentTypes } from "@/common/types";
+import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
 import mockLayout, { mockComponents } from "@/common/mock.data";
+import { findParentById, findParentObjectById } from "@/common/helpers";
 
 const initialState: IDndContextState = {
   layout: mockLayout,
@@ -39,17 +39,31 @@ function DndProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleDrop = useCallback(
-    (newItem: IComponent, parentType: ComponentTypes, id: string) => {
-      console.log("dropped item: ", newItem);
-      console.log("parentType: ", parentType);
-      console.log("id: ", id);
+    (droppedItem: IComponent, id: string) => {
+      if (id == "container") {
+        const { children } = layout[0];
+        children.push(droppedItem);
+        setLayout(layout);
+        return;
+      }
 
-      const { children } = layout[0];
-      children.push(newItem);
-      setLayout(layout);
+      let newItem: IComponent;
+      // const parentObj = findParentById(layout, id);
+      const parentId = findParentById(layout, id);
+      if (parentId) {
+        let parentObject = findParentObjectById(layout, parentId);
 
-      // const newLayout = handleMoveSidebarComponentIntoLayout(layout, newItem, dropZoneId);
-      // setLayout(newLayout);
+        newItem = {
+          type: droppedItem.type,
+          id: droppedItem.id,
+          parent: parentObject.id,
+          props: droppedItem.props,
+          children: droppedItem.children,
+        };
+
+        parentObject.children.push(newItem);
+        setLayout(layout);
+      }
     },
     [layout]
   );

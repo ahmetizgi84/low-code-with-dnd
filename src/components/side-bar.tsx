@@ -11,8 +11,8 @@ function SideBar() {
           <p className="text-sm font-semibold">Ready to use components</p>
 
           <div className="mt-4 flex flex-col space-y-2">
-            {Object.values(components).map((componentType) => (
-              <DraggableItem key={componentType} componentType={componentType} />
+            {Object.values(components).map((component) => (
+              <DraggableItem key={component.id} component={component} />
             ))}
           </div>
         </div>

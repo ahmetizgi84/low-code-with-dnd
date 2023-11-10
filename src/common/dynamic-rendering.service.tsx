@@ -2,6 +2,8 @@ import React from "react";
 
 import { IComponent } from "@/common/types";
 import { Components } from "@/common/constants";
+import { DroppableItem } from "@/components/droppable-item";
+import { DropZone } from "@/components/drop-zone";
 // import { useInteractive } from "@/hooks/useInteractive";
 
 export function createPage(layout: IComponent): React.ReactNode {
@@ -17,18 +19,26 @@ export function createPage(layout: IComponent): React.ReactNode {
   function createComponent(component: IComponent): React.ReactNode {
     const { type, id, props, children } = component;
 
+    const componentToCreate = Components[type].component;
+
     const element = React.createElement(
-      Components[type] as any,
-      // ForwardedComponent as any,
+      componentToCreate,
       {
         ...props,
         id,
         key: id,
       },
+      <DropZone id={id} type={type} />,
       Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)
     );
 
-    return element;
+    return (
+      <DroppableItem key={id} id={id} type={type}>
+        {element}
+      </DroppableItem>
+    );
+
+    // return element;
   }
 
   return renderer(layout);

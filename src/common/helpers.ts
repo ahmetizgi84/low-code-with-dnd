@@ -1,42 +1,26 @@
-import uniqid from "uniqid";
 import { IComponent } from "./types";
 
-export const handleMoveSidebarComponentIntoLayout = (layout: IComponent, newItem: IComponent, dropZoneId: string) => {
-  const { data, type } = layout;
-  const { items } = data;
+export const findParentById = (layout: IComponent[], targetId: string): string | null => {
+  for (const child of layout) {
+    const { parent, id, children } = child;
+    if (id == targetId) return parent;
+    return findParentById(children, targetId);
+  }
+  return null;
+};
 
-  let newLayoutStructure: IComponent;
-
-  if (type == "Container" && items?.length == 1 && newItem.type == "Column") {
-    newLayoutStructure = {
-      type,
-      data: {
-        id: data.id,
-        items: [
-          {
-            type: "DropZone",
-            data: {
-              id: `dropZone-${uniqid()}`,
-            },
-          },
-          newItem,
-          {
-            type: "DropZone",
-            data: {
-              id: `dropZone-${uniqid()}`,
-            },
-          },
-        ],
-      },
-    };
-
-    return newLayoutStructure;
+export const findParentObjectById = (layout: IComponent[], targetId: string): IComponent => {
+  for (const child of layout) {
+    const { id, children } = child;
+    if (id == targetId) return child;
+    return findParentObjectById(children, targetId);
   }
 
-  console.log("dropZoneId: ", dropZoneId);
-  console.log("layout: ", layout);
-  console.log("newItem: ", newItem);
-  console.log("items: ", items);
-
-  return layout;
+  return {
+    type: "Container",
+    id: "dummy-container",
+    parent: "dummy-root",
+    props: {},
+    children: [],
+  };
 };
