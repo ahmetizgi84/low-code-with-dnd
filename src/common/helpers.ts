@@ -18,7 +18,7 @@ export const createNewLayout = (
       id: `${droppedItem.type}-${uniqid()}`,
       parent: dropZoneId,
     };
-    children.push(newItem);
+    children?.push(newItem);
     return layout;
   }
 

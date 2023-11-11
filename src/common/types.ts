@@ -12,13 +12,18 @@ export interface IDndContextType {
 
 // dynamic render interfaces
 
-export type ComponentTypes = "Button" | "Input" | "Container" | "Row" | "Column";
+export type ComponentTypes =
+  | "Button"
+  | "Input"
+  | "Container"
+  | "Row"
+  | "Column";
 
 export interface IComponent {
   type: ComponentTypes;
   parent: string;
   id: string;
-  children: IComponent[];
+  children: IComponent[] | null;
   props: {
     [key: string]: unknown;
   };
@@ -33,4 +38,10 @@ export interface IComponentItems {
   [name: string]: IComponentItem;
 }
 
-export const AcceptedComponentList: ComponentTypes[] = ["Button", "Input", "Column", "Container", "Row"];
+export const AcceptedComponentList: ComponentTypes[] = [
+  "Button",
+  "Input",
+  "Column",
+  "Container",
+  "Row",
+];

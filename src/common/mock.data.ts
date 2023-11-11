@@ -142,7 +142,7 @@ export const mockComponents: IComponent[] = [
     type: "Input",
     parent: "",
     id: `Input-${uniqid()}`,
-    children: [],
+    children: null,
     props: {},
   },
 ];

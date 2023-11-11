@@ -8,7 +8,7 @@ import { DropZone } from "@/components/drop-zone";
 export function createPage(layout: IComponent): React.ReactNode {
   if (!layout) return null;
 
-  function renderer(config: IComponent): React.ReactNode {
+  function renderer(config: IComponent | null): React.ReactNode {
     if (!config) return null;
 
     // return config.map((item) => createComponent(item));
