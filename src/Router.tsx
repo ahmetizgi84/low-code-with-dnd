@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 import { Suspense, lazy } from "react";
 
 const Apps = lazy(() => import("./pages/Apps"));
@@ -71,7 +75,10 @@ const router = createBrowserRouter([
 const Router = () => {
   return (
     <Suspense fallback={<Gatherer />}>
-      <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
+      <RouterProvider
+        router={router}
+        fallbackElement={<p>Initial Load...</p>}
+      />
     </Suspense>
   );
 };
@@ -83,8 +90,7 @@ async function loginLoader() {
   const loginData = { user: "John Doe" };
 
   if (loginData != null) {
-    // return redirect("/builder/portal/apps");
-    return redirect("/builder/portal/users");
+    return redirect("/builder/portal/apps");
   }
   return null;
 }

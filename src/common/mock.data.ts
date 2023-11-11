@@ -5,23 +5,22 @@ export const mockLayout: IComponent[] = [
   {
     type: "Container",
     parent: "root",
-    id: "container",
+    id: `container`,
     children: [
       {
         type: "Row",
         parent: "container",
-        id: `row-1`,
+        id: `Row-1`,
         children: [
           {
             type: "Column",
-            parent: "row-1",
-            id: `column-1`,
+            parent: "Row-1",
+            id: `Column-1`,
             children: [
               {
                 type: "Button",
-                parent: "column-1",
-                // id: `button-${uniqid()}`,
-                id: `button-1`,
+                parent: "Column-1",
+                id: `Button-1`,
                 children: [],
                 props: {
                   variant: "outline",
@@ -107,26 +106,31 @@ export const mockLayout: IComponent[] = [
 ];
 */
 
-export const acceptedComponents: ComponentTypes[] = ["Row", "Column", "Button", "Input"];
+export const acceptedComponents: ComponentTypes[] = [
+  "Row",
+  "Column",
+  "Button",
+  "Input",
+];
 export const mockComponents: IComponent[] = [
   {
     type: "Row",
     parent: "",
-    id: `row-${uniqid()}`,
+    id: `Row-${uniqid()}`,
     children: [],
     props: {},
   },
   {
     type: "Column",
     parent: "",
-    id: `column-${uniqid()}`,
+    id: `Column-${uniqid()}`,
     children: [],
     props: {},
   },
   {
     type: "Button",
     parent: "",
-    id: `button-${uniqid()}`,
+    id: `Button-${uniqid()}`,
     children: [],
     props: {
       variant: "destructive",
@@ -137,7 +141,7 @@ export const mockComponents: IComponent[] = [
   {
     type: "Input",
     parent: "",
-    id: `input-${uniqid()}`,
+    id: `Input-${uniqid()}`,
     children: [],
     props: {},
   },

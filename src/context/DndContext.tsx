@@ -1,8 +1,14 @@
-import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useReducer,
+  useCallback,
+} from "react";
 
 import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
 import mockLayout, { mockComponents } from "@/common/mock.data";
-import { findParentById, findParentObjectById } from "@/common/helpers";
+import { createNewLayout } from "@/common/helpers";
 
 const initialState: IDndContextState = {
   layout: mockLayout,
@@ -13,7 +19,10 @@ const initialValue: IDndContextType = {
   state: initialState,
 } as any;
 
-function reducer(state: IDndContextState, { type, payload }: any): IDndContextState {
+function reducer(
+  state: IDndContextState,
+  { type, payload }: any
+): IDndContextState {
   switch (type) {
     case "SET_LAYOUT":
       return { ...state, layout: payload };
@@ -39,36 +48,35 @@ function DndProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleDrop = useCallback(
-    (droppedItem: IComponent, id: string) => {
-      if (id == "container") {
-        const { children } = layout[0];
-        children.push(droppedItem);
-        setLayout(layout);
-        return;
-      }
-
-      let newItem: IComponent;
-      // const parentObj = findParentById(layout, id);
-      const parentId = findParentById(layout, id);
-      if (parentId) {
-        let parentObject = findParentObjectById(layout, parentId);
-
-        newItem = {
-          type: droppedItem.type,
-          id: droppedItem.id,
-          parent: parentObject.id,
-          props: droppedItem.props,
-          children: droppedItem.children,
-        };
-
-        parentObject.children.push(newItem);
-        setLayout(layout);
-      }
+    (droppedItem: IComponent, dropZoneId: string) => {
+      setLayout(createNewLayout(layout, droppedItem, dropZoneId));
     },
     [layout]
   );
 
-  /*
+  const initialValue: IDndContextType = {
+    state,
+    setLayout,
+    setComponents,
+    handleDrop,
+  };
+
+  return (
+    <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>
+  );
+}
+
+const useDndContext = () => {
+  const context = useContext(DndContext);
+  if (context === undefined) {
+    throw new Error("useDndContext must be used within a DndProvider");
+  }
+  return context;
+};
+
+export { useDndContext, DndProvider };
+
+/*
   const handleDrop = useCallback(
     (dropZone: any, item: any) => {
       const splitDropZonePath = dropZone.path.split("-");
@@ -127,23 +135,3 @@ function DndProvider({ children }: { children: ReactNode }) {
     [layout, components]
   );
   */
-
-  const initialValue: IDndContextType = {
-    state,
-    setLayout,
-    setComponents,
-    handleDrop,
-  };
-
-  return <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>;
-}
-
-const useDndContext = () => {
-  const context = useContext(DndContext);
-  if (context === undefined) {
-    throw new Error("useDndContext must be used within a DndProvider");
-  }
-  return context;
-};
-
-export { useDndContext, DndProvider };
