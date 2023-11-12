@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useReducer,
-  useCallback,
-} from "react";
+import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
 
 import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
 import mockLayout, { mockComponents } from "@/common/mock.data";
@@ -19,10 +13,7 @@ const initialValue: IDndContextType = {
   state: initialState,
 } as any;
 
-function reducer(
-  state: IDndContextState,
-  { type, payload }: any
-): IDndContextState {
+function reducer(state: IDndContextState, { type, payload }: any): IDndContextState {
   switch (type) {
     case "SET_LAYOUT":
       return { ...state, layout: payload };
@@ -61,9 +52,7 @@ function DndProvider({ children }: { children: ReactNode }) {
     handleDrop,
   };
 
-  return (
-    <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>
-  );
+  return <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>;
 }
 
 const useDndContext = () => {
@@ -81,7 +70,6 @@ export { useDndContext, DndProvider };
     (dropZone: any, item: any) => {
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
-      console.log("itemm: ", item);
 
       const newItem = { id: item.id, type: item.type, children: null };
 

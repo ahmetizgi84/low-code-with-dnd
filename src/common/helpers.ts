@@ -1,14 +1,7 @@
 import uniqid from "uniqid";
 import { IComponent } from "./types";
 
-export const createNewLayout = (
-  layout: IComponent[],
-  droppedItem: IComponent,
-  dropZoneId: string
-): IComponent[] => {
-  console.log("droppedItem: ", droppedItem);
-  console.log("dropZoneId: ", dropZoneId);
-
+export const createNewLayout = (layout: IComponent[], droppedItem: IComponent, dropZoneId: string): IComponent[] => {
   let newItem: IComponent;
 
   if (dropZoneId == "container") {
@@ -36,10 +29,7 @@ export const createNewLayout = (
   return layout;
 };
 
-const findChildrenById = (
-  layout: IComponent[],
-  targetId: string
-): IComponent[] | undefined => {
+const findChildrenById = (layout: IComponent[], targetId: string): IComponent[] | undefined => {
   for (const item of layout) {
     if (item.id === targetId) {
       return item.children || [];

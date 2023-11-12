@@ -25,14 +25,35 @@ export const mockLayout: IComponent[] = [
                 props: {
                   variant: "outline",
                   size: "lg",
-                  title: "This is Children button",
+                  title: "This is Children button 1",
+                },
+              },
+            ],
+            props: {},
+          },
+          {
+            type: "Column",
+            parent: "Row-1",
+            id: `Column-2`,
+            children: [
+              {
+                type: "Button",
+                parent: "Column-2",
+                id: `Button-2`,
+                children: [],
+                props: {
+                  variant: "outline",
+                  size: "lg",
+                  title: "This is Children button 2",
                 },
               },
             ],
             props: {},
           },
         ],
-        props: {},
+        props: {
+          className: "gap-4",
+        },
       },
     ],
     props: {},
@@ -106,12 +127,7 @@ export const mockLayout: IComponent[] = [
 ];
 */
 
-export const acceptedComponents: ComponentTypes[] = [
-  "Row",
-  "Column",
-  "Button",
-  "Input",
-];
+export const acceptedComponents: ComponentTypes[] = ["Row", "Column", "Button", "Input"];
 export const mockComponents: IComponent[] = [
   {
     type: "Row",
@@ -142,7 +158,7 @@ export const mockComponents: IComponent[] = [
     type: "Input",
     parent: "",
     id: `Input-${uniqid()}`,
-    children: null,
+    children: [],
     props: {},
   },
 ];

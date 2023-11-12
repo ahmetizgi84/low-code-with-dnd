@@ -32,9 +32,7 @@ export function createPage(layout: IComponent): React.ReactNode {
         },
         <>
           <DropZone id={id} type={type} className="h-10" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
+          {Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)}
           <DropZone id={id} type={type} className="h-10" />
         </>
       );
@@ -48,9 +46,7 @@ export function createPage(layout: IComponent): React.ReactNode {
         },
         <>
           <DropZone id={id} type={type} className="w-10 h-auto" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
+          {Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)}
           <DropZone id={id} type={type} className="w-10 h-auto" />
         </>
       );
@@ -64,9 +60,7 @@ export function createPage(layout: IComponent): React.ReactNode {
         },
         <>
           <DropZone id={id} type={type} className="h-10" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
+          {Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)}
           <DropZone id={id} type={type} className="h-10" />
         </>
       );
@@ -78,9 +72,7 @@ export function createPage(layout: IComponent): React.ReactNode {
           id,
           key: id,
         },
-        Array.isArray(children)
-          ? children.map(renderer)
-          : renderer(children ?? null)
+        Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)
       );
     }
 
@@ -149,7 +141,6 @@ export function createPage(layout: IComponent[]): React.ReactNode {
 
   function createComponent(items: IComponent[]): React.ReactNode {
     for (const child of items) {
-      console.log("child:", child);
       const { type, id, props, children } = child;
 
       const element = React.createElement(
