@@ -2,7 +2,6 @@ import React from "react";
 
 import { IComponent } from "@/common/types";
 import { Components } from "@/common/constants";
-import { DropZone } from "@/components/drop-zone";
 // import { useInteractive } from "@/hooks/useInteractive";
 
 export function createPage(layout: IComponent): React.ReactNode {
@@ -20,71 +19,15 @@ export function createPage(layout: IComponent): React.ReactNode {
 
     const componentToCreate = Components[type].component;
 
-    let element: any;
-
-    if (type == "Container") {
-      element = React.createElement(
-        componentToCreate,
-        {
-          ...props,
-          id,
-          key: id,
-        },
-        <>
-          <DropZone id={id} type={type} className="h-10" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
-          <DropZone id={id} type={type} className="h-10" />
-        </>
-      );
-    } else if (type == "Row") {
-      element = React.createElement(
-        componentToCreate,
-        {
-          ...props,
-          id,
-          key: id,
-        },
-        <>
-          <DropZone id={id} type={type} className="w-10 h-auto" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
-          <DropZone id={id} type={type} className="w-10 h-auto" />
-        </>
-      );
-    } else if (type == "Column") {
-      element = React.createElement(
-        componentToCreate,
-        {
-          ...props,
-          id,
-          key: id,
-        },
-        <>
-          <DropZone id={id} type={type} className="h-10" />
-          {Array.isArray(children)
-            ? children.map(renderer)
-            : renderer(children ?? null)}
-          <DropZone id={id} type={type} className="h-10" />
-        </>
-      );
-    } else {
-      element = React.createElement(
-        componentToCreate,
-        {
-          ...props,
-          id,
-          key: id,
-        },
-        Array.isArray(children)
-          ? children.map(renderer)
-          : renderer(children ?? null)
-      );
-    }
-
-    return element;
+    return React.createElement(
+      componentToCreate,
+      {
+        ...props,
+        id,
+        key: id,
+      },
+      Array.isArray(children) ? children.map(renderer) : renderer(children ?? null)
+    );
   }
 
   return renderer(layout);
