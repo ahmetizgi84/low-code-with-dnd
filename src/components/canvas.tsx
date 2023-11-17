@@ -1,7 +1,7 @@
 import { useDndContext } from "@/context/DndContext";
 // import { useDropComponent } from "@/hooks/useDropComponent";
 import cn from "classnames";
-import { createPage } from "@/common";
+import ComponentPreview from "./component-preview";
 
 function Canvas() {
   // const { drop, isActive } = useDropComponent("Container");
@@ -18,7 +18,9 @@ function Canvas() {
           // { active: isActive }
         )}
       >
-        {layout.map((component) => createPage(component))}
+        {layout.map((component) => (
+          <ComponentPreview key={component.id} component={component} />
+        ))}
       </div>
     </div>
   );

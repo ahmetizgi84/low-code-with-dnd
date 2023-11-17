@@ -2,8 +2,8 @@ import { acceptedComponents } from "@/common/mock.data";
 import { useDndContext } from "@/context/DndContext";
 import { useDrop, DropTargetMonitor } from "react-dnd";
 
-export const useDropComponent = (id: string, canDrop: boolean = true) => {
-  const { handleDrop } = useDndContext();
+export const useDropComponent = (id: string, parent: string, canDrop: boolean = true) => {
+  const { addComponent, moveComponent } = useDndContext();
 
   //
   const [{ isOver }, drop] = useDrop({
@@ -17,7 +17,12 @@ export const useDropComponent = (id: string, canDrop: boolean = true) => {
         return;
       }
 
-      handleDrop(item, id);
+      if (item.isMoved) {
+        moveComponent(item, id, parent);
+        return;
+      }
+
+      addComponent(item, id, parent);
     },
     canDrop: () => canDrop,
   });

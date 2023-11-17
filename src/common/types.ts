@@ -7,23 +7,19 @@ export interface IDndContextType {
   state: IDndContextState;
   setLayout: (p: IComponent[]) => void;
   setComponents: (params: IComponent[]) => void;
-  handleDrop: (item: IComponent, id: string) => void;
+  addComponent: (item: IComponent, id: string, parent: string) => void;
+  moveComponent: (item: IComponent, id: string, parent: string) => void;
 }
 
 // dynamic render interfaces
 
-export type ComponentTypes =
-  | "Button"
-  | "Input"
-  | "Container"
-  | "Row"
-  | "Column";
+export type ComponentTypes = "DropZone" | "Button" | "Input" | "Container" | "Row" | "Column";
 
 export interface IComponent {
   type: ComponentTypes;
   parent: string;
   id: string;
-  children: IComponent[] | null;
+  children: IComponent[];
   props: {
     [key: string]: unknown;
   };
@@ -38,10 +34,4 @@ export interface IComponentItems {
   [name: string]: IComponentItem;
 }
 
-export const AcceptedComponentList: ComponentTypes[] = [
-  "Button",
-  "Input",
-  "Column",
-  "Container",
-  "Row",
-];
+export const AcceptedComponentList: ComponentTypes[] = ["Button", "Input", "Column", "Container", "Row"];

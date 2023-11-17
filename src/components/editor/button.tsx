@@ -1,4 +1,5 @@
 import { Button as ShadcnButton } from "@/components/ui/button";
+import React from "react";
 
 type TSize = "default" | "sm" | "lg" | "icon" | null | undefined;
 type TVariant = "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
@@ -10,12 +11,14 @@ interface IButton {
   title: string;
 }
 
-function Button({ size = "default", variant = "default", className, title = "Default Title", ...rest }: IButton) {
-  return (
-    <ShadcnButton size={size} variant={variant} className={className} {...rest}>
-      {title}
-    </ShadcnButton>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, IButton>(
+  ({ size = "default", variant = "default", className, title = "Default Title", ...rest }, ref) => {
+    return (
+      <ShadcnButton size={size} variant={variant} className={className} ref={ref} {...rest}>
+        {title}
+      </ShadcnButton>
+    );
+  }
+);
 
 export { Button };

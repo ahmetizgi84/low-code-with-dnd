@@ -1,14 +1,8 @@
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useReducer,
-  useCallback,
-} from "react";
+import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
 
 import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
 import mockLayout, { mockComponents } from "@/common/mock.data";
-import { createNewLayout } from "@/common/helpers";
+import { updateLayout } from "@/common/helpers";
 
 const initialState: IDndContextState = {
   layout: mockLayout,
@@ -19,10 +13,7 @@ const initialValue: IDndContextType = {
   state: initialState,
 } as any;
 
-function reducer(
-  state: IDndContextState,
-  { type, payload }: any
-): IDndContextState {
+function reducer(state: IDndContextState, { type, payload }: any): IDndContextState {
   switch (type) {
     case "SET_LAYOUT":
       return { ...state, layout: payload };
@@ -47,9 +38,29 @@ function DndProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "SET_COMPONENTS", payload });
   }, []);
 
-  const handleDrop = useCallback(
-    (droppedItem: IComponent, dropZoneId: string) => {
-      setLayout(createNewLayout(layout, droppedItem, dropZoneId));
+  const addComponent = useCallback(
+    (droppedItem: IComponent, dropZoneId: string, parent: string) => {
+      console.log("new item is dropped into canvas...");
+
+      console.log("droppedItem: ", droppedItem);
+      console.log("dropZoneId: ", dropZoneId);
+      console.log("parentId: ", parent);
+    },
+    [layout]
+  );
+
+  const moveComponent = useCallback(
+    (droppedItem: IComponent, dropZoneId: string, parentId: string) => {
+      // console.log("item is moving in canvas... only change the position");
+
+      const layoutReplica = [...layout];
+
+      console.log("droppedItem: ", droppedItem);
+      console.log("dropZoneId: ", dropZoneId);
+      console.log("parentId: ", parentId);
+
+      const newLayoutStructure = updateLayout(layoutReplica, parentId, droppedItem.id, dropZoneId);
+      setLayout(newLayoutStructure);
     },
     [layout]
   );
@@ -58,12 +69,11 @@ function DndProvider({ children }: { children: ReactNode }) {
     state,
     setLayout,
     setComponents,
-    handleDrop,
+    addComponent,
+    moveComponent,
   };
 
-  return (
-    <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>
-  );
+  return <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>;
 }
 
 const useDndContext = () => {
@@ -75,63 +85,3 @@ const useDndContext = () => {
 };
 
 export { useDndContext, DndProvider };
-
-/*
-  const handleDrop = useCallback(
-    (dropZone: any, item: any) => {
-      const splitDropZonePath = dropZone.path.split("-");
-      const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
-      console.log("itemm: ", item);
-
-      const newItem = { id: item.id, type: item.type, children: null };
-
-      if (item.type === AcceptedTypes.COLUMN) {
-        newItem.children = item.children;
-      }
-
-      // sidebar into
-      if (item.type === AcceptedTypes.SIDEBAR_ITEM) {
-        // 1. Move sidebar item into page
-        const newComponent = {
-          id: uniqid(),
-          ...item.component,
-        };
-        const newItem = {
-          ...item,
-          id: newComponent.id,
-          type: item.component.type,
-          // type: AcceptedTypes.COMPONENT,
-        };
-        setComponents({
-          ...components,
-          [newComponent.id]: newComponent,
-        });
-
-        setLayout(handleMoveSidebarComponentIntoParent(layout, splitDropZonePath, newItem));
-        return;
-      }
-
-      // move down here since sidebar items dont have path
-      const splitItemPath = item.path.split("-");
-      const pathToItem = splitItemPath.slice(0, -1).join("-");
-
-      // 2. Pure move (no create)
-      if (splitItemPath.length === splitDropZonePath.length) {
-        // 2.a. move within parent
-        if (pathToItem === pathToDropZone) {
-          setLayout(handleMoveWithinParent(layout, splitDropZonePath, splitItemPath));
-          return;
-        }
-
-        // 2.b. OR move different parent
-        // TODO FIX columns. item includes children
-        setLayout(handleMoveToDifferentParent(layout, splitDropZonePath, splitItemPath, newItem));
-        return;
-      }
-
-      // 3. Move + Create
-      setLayout(handleMoveToDifferentParent(layout, splitDropZonePath, splitItemPath, newItem));
-    },
-    [layout, components]
-  );
-  */

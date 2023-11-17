@@ -5,8 +5,13 @@ import { Row } from "@/components/editor/row";
 import { Column } from "@/components/editor/column";
 import { IComponentItems } from "./types";
 import { Input } from "@/components/ui/input";
+import { DropZone } from "@/components/drop-zone";
 
 export const Components: IComponentItems = {
+  DropZone: {
+    component: DropZone,
+    isDroppable: true,
+  },
   Container: {
     component: Container,
     isDroppable: true,
