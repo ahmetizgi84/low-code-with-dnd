@@ -109,17 +109,17 @@ function removeObjectById(layout: IComponent[], id: string): TRemoveObjectById {
   return { updatedLayout: layout, removedObject: null };
 }
 
-function addChildToParentById(layout: IComponent[], parentId: string, child: IComponent): IComponent[] | null {
-  const parentObject = findObjectById(layout, parentId);
+// function addChildToParentById(layout: IComponent[], parentId: string, child: IComponent): IComponent[] | null {
+//   const parentObject = findObjectById(layout, parentId);
 
-  if (parentObject) {
-    console.log("length: ", parentObject?.children.length);
-    parentObject.children.push(child);
-    return layout;
-  }
+//   if (parentObject) {
+//     console.log("length: ", parentObject?.children.length);
+//     parentObject.children.push(child);
+//     return layout;
+//   }
 
-  return null;
-}
+//   return null;
+// }
 
 function addChildToParentAtIndex(
   layout: IComponent[],
