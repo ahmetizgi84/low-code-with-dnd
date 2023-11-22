@@ -14,13 +14,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 function PageTop() {
-  const { setLayout } = useDndContext();
+  const {
+    state: { enableVisualHelper },
+    setLayout,
+    toggleVisualHelper,
+  } = useDndContext();
 
   return (
     <div className="control h-12 px-4 flex justify-between items-center">
       <p>Responsive Control</p>
+
       <div className="flex items-center">
         <div>
           <AlertDialog>
@@ -60,6 +67,11 @@ function PageTop() {
           <Button size="icon" variant="ghost" className="w-8 h-8">
             <Smartphone size={14} />
           </Button>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Switch id="airplane-mode" checked={enableVisualHelper} onCheckedChange={toggleVisualHelper} />
+          <Label htmlFor="airplane-mode">Enable Visual Helper</Label>
         </div>
       </div>
     </div>

@@ -5,12 +5,18 @@ import { useInteractive } from "@/hooks/useInteractive";
 import ComponentPreview from "./component-preview";
 import { generateLayoutWithDropzones } from "@/common/helpers";
 
-const WithChildrenPreviewContainer: React.FC<{
+type TWithChildrenPreviewContainer = {
   component: IComponent;
   type: string | FunctionComponent<any> | ComponentClass<any, any>;
   enableVisualHelper?: boolean;
-  isBoxWrapped?: boolean;
-}> = ({ component, type, enableVisualHelper = false, isBoxWrapped = false, ...forwardedProps }) => {
+};
+
+const WithChildrenPreviewContainer: React.FC<TWithChildrenPreviewContainer> = ({
+  component,
+  type,
+  enableVisualHelper,
+  ...forwardedProps
+}) => {
   const { children, id } = component;
   const { props, ref } = useInteractive(component, enableVisualHelper);
   const propsElement: any = { ref, ...props, ...forwardedProps };

@@ -203,6 +203,7 @@ export const mockComponents: IComponent[] = [
     id: `Button-${uniqid()}`,
     children: [],
     props: {
+      id: `Button-${uniqid()}`,
       variant: "destructive",
       size: "lg",
       title: "Hello Button",

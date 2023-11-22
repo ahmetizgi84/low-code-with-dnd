@@ -5,9 +5,9 @@
 
 ## TODOS
 
-[ ] moveComponent fonksiyonu helper fonksiyonları refactor edilecek.
-[ ] addComponent fonksiyonu için yeni helper fonksiyonlar yazılacak.
-[ ] layout state'i initial layout ile güncellenecek.
+- [ ] moveComponent fonksiyonu helper fonksiyonları refactor edilecek.
+- [ ] addComponent fonksiyonu için yeni helper fonksiyonlar yazılacak.
+- [ ] layout state'i initial layout ile güncellenecek.
 
 ```js
 const initialLayout = [
@@ -21,7 +21,7 @@ const initialLayout = [
 ];
 ```
 
-[ ] Eklenen her yeni componentin id'si `uniqid` kullanılarak dinamik ve eşşiz yapılacak.
-[ ] `moveComponent` ve `addComponent` işlevleri sonrası localStorage güncellenecek ve state persistancy korunacak.
-[ ] "Ready to use components" listesi güncellenecek. Yeni oluşturulan komponentler forwardRef ile sarmallanıp ref alması sağlanacak.
-[ ] `ComponentPreview`, `PreviewContainer` ve `WithChildrenPreviewContainer` komponentleri kaldırılıp `createPage` fonksiyonuna taşınacak
+- [ ] Eklenen her yeni componentin id'si `uniqid` kullanılarak dinamik ve eşşiz yapılacak.
+- [ ] `moveComponent` ve `addComponent` işlevleri sonrası localStorage güncellenecek ve state persistancy korunacak.
+- [ ] "Ready to use components" listesi güncellenecek. Yeni oluşturulan komponentler forwardRef ile sarmallanıp ref alması sağlanacak.
+- [ ] `ComponentPreview`, `PreviewContainer` ve `WithChildrenPreviewContainer` komponentleri kaldırılıp `createPage` fonksiyonuna taşınacak

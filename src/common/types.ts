@@ -1,6 +1,7 @@
 export interface IDndContextState {
   layout: IComponent[];
   components: IComponent[];
+  enableVisualHelper: boolean;
 }
 
 export interface IDndContextType {
@@ -8,7 +9,8 @@ export interface IDndContextType {
   setLayout: (p: IComponent[]) => void;
   setComponents: (params: IComponent[]) => void;
   addComponent: (item: IComponent, id: string, parent: string) => void;
-  moveComponent: (item: IComponent, id: string, parent: string) => void;
+  removeComponent: (id: string) => void;
+  toggleVisualHelper: () => void;
 }
 
 // dynamic render interfaces
@@ -27,7 +29,7 @@ export interface IComponent {
 
 interface IComponentItem {
   component: any;
-  isDroppable: boolean;
+  isDroppable?: boolean;
 }
 
 export interface IComponentItems {

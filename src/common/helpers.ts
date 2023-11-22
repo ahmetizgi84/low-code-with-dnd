@@ -1,4 +1,5 @@
 import uniqid from "uniqid";
+import _ from "lodash";
 
 import { IComponent } from "./types";
 
@@ -47,100 +48,58 @@ export function generateLayoutWithDropzones(arr: IComponent[], parentId: string)
 }
 
 export function updateLayout(
-  layout: IComponent[],
+  state: IComponent[],
   targetId: string,
-  componentId: string,
+  component: IComponent,
   dropzoneId: string
 ): IComponent[] {
-  let newLayoutStructure: IComponent[] = [...layout];
-  // const targetObject = findObjectById(newLayoutStructure, targetId);
-  // const movedObject = findObjectById(newLayoutStructure, componentId);
-
-  const { updatedLayout, removedObject } = removeObjectById(newLayoutStructure, componentId);
-  if (removedObject) {
-    // const updatedLayoutWithChild = addChildToParentById(updatedLayout, targetId, removedObject);
-    const dropzoneIndex = parseInt(dropzoneId.split("-")[1]);
-    const updatedLayoutWithChild = addChildToParentAtIndex(updatedLayout, targetId, removedObject, dropzoneIndex);
-    if (updatedLayoutWithChild) {
-      // console.log("Çocuk eklenmiş güncellenmiş layout dizisi:", updatedLayoutWithChild);
-    } else {
-      console.log("Belirtilen ID ile eşleşen parent obje bulunamadı.");
-    }
-  } else {
-    console.log("Belirtilen ID ile eşleşen obje bulunamadı.");
-  }
-
-  return newLayoutStructure;
+  const dropzoneIndex = parseInt(dropzoneId.split("-")[1]);
+  return addChildToParentAtIndex(state, targetId, component, dropzoneIndex);
 }
 
-function findObjectById(layout: IComponent[], id: string): IComponent | null {
-  for (const obj of layout) {
-    if (obj.id === id) {
-      return obj;
-    } else if (obj.children && obj.children.length > 0) {
-      const nestedObject: IComponent | null = findObjectById(obj.children, id);
-      if (nestedObject) {
-        return nestedObject;
-      }
+export function removeObjectById(array: IComponent[], id: string): IComponent[] {
+  _.forEach(array, (item, index) => {
+    if (item && item.id === id) {
+      array.splice(index, 1);
+    } else if (item && _.isArray(item.children)) {
+      removeObjectById(item.children, id);
     }
-  }
-
-  return null;
+  });
+  return array;
 }
-
-type TRemoveObjectById = {
-  updatedLayout: IComponent[];
-  removedObject: IComponent | null;
-};
-
-function removeObjectById(layout: IComponent[], id: string): TRemoveObjectById {
-  for (let i = 0; i < layout.length; i++) {
-    if (layout[i].id === id) {
-      const removedObject = layout.splice(i, 1)[0];
-      return { updatedLayout: layout, removedObject };
-    } else if (layout[i].children && layout[i].children.length > 0) {
-      const { removedObject } = removeObjectById(layout[i].children, id);
-      if (removedObject) {
-        return { updatedLayout: layout, removedObject };
-      }
-    }
-  }
-
-  return { updatedLayout: layout, removedObject: null };
-}
-
-// function addChildToParentById(layout: IComponent[], parentId: string, child: IComponent): IComponent[] | null {
-//   const parentObject = findObjectById(layout, parentId);
-
-//   if (parentObject) {
-//     console.log("length: ", parentObject?.children.length);
-//     parentObject.children.push(child);
-//     return layout;
-//   }
-
-//   return null;
-// }
 
 function addChildToParentAtIndex(
   layout: IComponent[],
   parentId: string,
   child: IComponent,
   index: number
-): IComponent[] | null {
+): IComponent[] {
   const parentObject = findObjectById(layout, parentId);
 
   if (parentObject) {
-    child.parent = parentId;
+    child.parent = parentObject.id;
     parentObject.children.splice(index, 0, child);
-
-    // Kaydırma işlemi
-    for (let i = index + 1; i < parentObject.children.length; i++) {
-      const currentIndex = parseInt(parentObject.children[i].id.split("-")[1]);
-      parentObject.children[i].id = `Column-${currentIndex + 1}`;
-    }
 
     return layout;
   }
 
-  return null;
+  return layout;
+}
+
+function findObjectById(array: IComponent[], id: string): IComponent | null {
+  let result = null;
+
+  _.forEach(array, (item) => {
+    if (item && item.id === id) {
+      result = item;
+      return false; // break the loop
+    } else if (item && _.isArray(item.children)) {
+      result = findObjectById(item.children, id);
+      if (result) {
+        return false; // break the loop
+      }
+    }
+  });
+
+  return result;
 }

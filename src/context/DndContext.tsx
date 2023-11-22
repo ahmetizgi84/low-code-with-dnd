@@ -1,12 +1,14 @@
 import { createContext, useContext, ReactNode, useReducer, useCallback } from "react";
+import cloneDeep from "lodash/cloneDeep";
 
 import { IDndContextState, IDndContextType, IComponent } from "@/common/types";
 import mockLayout, { mockComponents } from "@/common/mock.data";
-import { updateLayout } from "@/common/helpers";
+import { removeObjectById, updateLayout } from "@/common/helpers";
 
 const initialState: IDndContextState = {
   layout: mockLayout,
   components: [...mockComponents],
+  enableVisualHelper: false,
 };
 
 const initialValue: IDndContextType = {
@@ -19,6 +21,8 @@ function reducer(state: IDndContextState, { type, payload }: any): IDndContextSt
       return { ...state, layout: payload };
     case "SET_COMPONENTS":
       return { ...state, components: payload };
+    case "SET_VISUAL_HELPER":
+      return { ...state, enableVisualHelper: payload };
     default:
       return state;
   }
@@ -28,7 +32,7 @@ const DndContext = createContext<IDndContextType>(initialValue);
 
 function DndProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { layout } = state;
+  const { layout, enableVisualHelper } = state;
 
   const setLayout = useCallback((payload: IComponent[]) => {
     dispatch({ type: "SET_LAYOUT", payload });
@@ -39,38 +43,37 @@ function DndProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addComponent = useCallback(
-    (droppedItem: IComponent, dropZoneId: string, parent: string) => {
-      console.log("new item is dropped into canvas...");
-
-      console.log("droppedItem: ", droppedItem);
-      console.log("dropZoneId: ", dropZoneId);
-      console.log("parentId: ", parent);
-    },
-    [layout]
-  );
-
-  const moveComponent = useCallback(
     (droppedItem: IComponent, dropZoneId: string, parentId: string) => {
-      // console.log("item is moving in canvas... only change the position");
+      // console.log("new item is dropped into canvas...");
+      const layoutCopy = cloneDeep(layout); // keep the original array unchanged.
 
-      const layoutReplica = [...layout];
-
-      console.log("droppedItem: ", droppedItem);
-      console.log("dropZoneId: ", dropZoneId);
-      console.log("parentId: ", parentId);
-
-      const newLayoutStructure = updateLayout(layoutReplica, parentId, droppedItem.id, dropZoneId);
+      const newLayoutStructure = updateLayout(layoutCopy, parentId, droppedItem, dropZoneId);
       setLayout(newLayoutStructure);
     },
     [layout]
   );
+
+  const removeComponent = useCallback(
+    (componentId: string) => {
+      const layoutCopy = cloneDeep(layout); // keep the original array unchanged.
+
+      const newLayoutStructure = removeObjectById(layoutCopy, componentId);
+      setLayout(newLayoutStructure);
+    },
+    [layout]
+  );
+
+  const toggleVisualHelper = useCallback(() => {
+    dispatch({ type: "SET_VISUAL_HELPER", payload: !enableVisualHelper });
+  }, [enableVisualHelper]);
 
   const initialValue: IDndContextType = {
     state,
     setLayout,
     setComponents,
     addComponent,
-    moveComponent,
+    removeComponent,
+    toggleVisualHelper,
   };
 
   return <DndContext.Provider value={initialValue}>{children}</DndContext.Provider>;

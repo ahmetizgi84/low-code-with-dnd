@@ -1,12 +1,28 @@
-import { IComponent } from "@/common/types";
 import { useRef } from "react";
 import { useDrag } from "react-dnd";
 
+import { IComponent } from "@/common/types";
+import { useDndContext } from "@/context/DndContext";
+
 export const useInteractive = (component: IComponent, enableVisualHelper: boolean = false) => {
+  const { removeComponent } = useDndContext();
+
   const [, drag] = useDrag({
     type: component.type,
-    // item: { id: component.id, type: component.type, isMoved: true },
-    item: { ...component, isMoved: true },
+    item: { ...component },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    isDragging: (monitor) => {
+      if (component.id == monitor.getItem().id) {
+        removeComponent(component.id);
+        return true;
+      }
+      return false;
+    },
+    end: (draggedItem) => {
+      console.log("drag end: ", draggedItem);
+    },
   });
 
   const ref = useRef<HTMLDivElement>(null);
@@ -18,8 +34,7 @@ export const useInteractive = (component: IComponent, enableVisualHelper: boolea
   if (enableVisualHelper) {
     props = {
       ...props,
-      border: `1px dashed #718096`,
-      padding: props.p || props.padding ? props.p || props.padding : 4,
+      className: `border border-dashed border-gray-800 relative transition duration-150 ease-in-out after:bg-gray-800/30 after:absolute after:w-20 after:h-3 after:text-center after:-top-0 after:-left-[1px] after:text-white after:text-[8px] after:content-['${component.type}']`,
     };
   }
 

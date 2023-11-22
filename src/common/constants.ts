@@ -10,7 +10,6 @@ import { DropZone } from "@/components/drop-zone";
 export const Components: IComponentItems = {
   DropZone: {
     component: DropZone,
-    isDroppable: true,
   },
   Container: {
     component: Container,
@@ -26,11 +25,9 @@ export const Components: IComponentItems = {
   },
   Button: {
     component: Button,
-    isDroppable: false,
   },
   Input: {
     component: Input,
-    isDroppable: false,
   },
   div: {
     component: "div",

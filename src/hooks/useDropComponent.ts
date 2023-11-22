@@ -1,9 +1,12 @@
-import { acceptedComponents } from "@/common/mock.data";
-import { useDndContext } from "@/context/DndContext";
+import uniqid from "uniqid";
 import { useDrop, DropTargetMonitor } from "react-dnd";
 
+import { acceptedComponents } from "@/common/mock.data";
+import { IComponent } from "@/common/types";
+import { useDndContext } from "@/context/DndContext";
+
 export const useDropComponent = (id: string, parent: string, canDrop: boolean = true) => {
-  const { addComponent, moveComponent } = useDndContext();
+  const { addComponent } = useDndContext();
 
   //
   const [{ isOver }, drop] = useDrop({
@@ -12,15 +15,14 @@ export const useDropComponent = (id: string, parent: string, canDrop: boolean = 
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
-    drop: (item: any, monitor: DropTargetMonitor) => {
+    drop: (item: IComponent, monitor: DropTargetMonitor) => {
       if (!monitor.isOver()) {
         return;
       }
 
-      if (item.isMoved) {
-        moveComponent(item, id, parent);
-        return;
-      }
+      const generatedId = `${item.type}-${uniqid()}`;
+      item.id = generatedId;
+      item.props.id = generatedId;
 
       addComponent(item, id, parent);
     },
