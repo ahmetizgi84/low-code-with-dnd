@@ -6,110 +6,7 @@ export const mockLayout: IComponent[] = [
     type: "Container",
     parent: "root",
     id: `container`,
-    children: [
-      {
-        type: "Row",
-        parent: "container",
-        id: `Row-1`,
-        children: [
-          {
-            type: "Column",
-            parent: "Row-1",
-            id: `Column-1`,
-            children: [
-              {
-                type: "Button",
-                parent: "Column-1",
-                id: `Button-1`,
-                children: [],
-                props: {
-                  variant: "outline",
-                  size: "lg",
-                  title: "This is Button 1",
-                },
-              },
-              {
-                type: "Button",
-                parent: "Column-1",
-                id: `Button-2`,
-                children: [],
-                props: {
-                  variant: "destructive",
-                  size: "lg",
-                  title: "This is Button 2",
-                },
-              },
-            ],
-            props: {},
-          },
-        ],
-        props: {},
-      },
-      {
-        type: "Row",
-        parent: "container",
-        id: `Row-2`,
-        children: [
-          {
-            type: "Column",
-            parent: "Row-2",
-            id: `Column-2`,
-            children: [
-              {
-                type: "Button",
-                parent: "Column-2",
-                // id: `button-${uniqid()}`,
-                id: `button-3`,
-                children: [],
-                props: {
-                  variant: "destructive",
-                  size: "lg",
-                  title: "First Button",
-                },
-              },
-              {
-                type: "Button",
-                parent: "Column-2",
-                // id: `button-${uniqid()}`,
-                id: `button-4`,
-                children: [],
-                props: {
-                  variant: "destructive",
-                  size: "lg",
-                  title: "Second Button",
-                },
-              },
-              {
-                type: "Button",
-                parent: "Column-2",
-                // id: `button-${uniqid()}`,
-                id: `button-5`,
-                children: [],
-                props: {
-                  variant: "destructive",
-                  size: "lg",
-                  title: "Third Button",
-                },
-              },
-              {
-                type: "Button",
-                parent: "Column-2",
-                // id: `button-${uniqid()}`,
-                id: `button-6`,
-                children: [],
-                props: {
-                  variant: "destructive",
-                  size: "lg",
-                  title: "Forth Button",
-                },
-              },
-            ],
-            props: {},
-          },
-        ],
-        props: {},
-      },
-    ],
+    children: [],
     props: {},
   },
 ];
@@ -182,6 +79,7 @@ export const mockLayout: IComponent[] = [
 */
 
 export const acceptedComponents: ComponentTypes[] = ["DropZone", "Row", "Column", "Button", "Input"];
+
 export const mockComponents: IComponent[] = [
   {
     type: "Row",

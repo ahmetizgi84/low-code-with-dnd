@@ -8,7 +8,7 @@ import { removeObjectById, updateLayout } from "@/common/helpers";
 const initialState: IDndContextState = {
   layout: mockLayout,
   components: [...mockComponents],
-  enableVisualHelper: false,
+  enableVisualHelper: true,
 };
 
 const initialValue: IDndContextType = {

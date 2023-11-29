@@ -14,6 +14,12 @@ export const useInteractive = (component: IComponent, enableVisualHelper: boolea
       isDragging: monitor.isDragging(),
     }),
     isDragging: (monitor) => {
+      /**
+       * @description
+       * dragging esnasında drag edilen komponenti diziden çıkarmak drop esansındaki index sorununu ortadan kaldırıyor
+       * Fakat dropzone haricinde boş bir alana bırakılan komponent layout state'inden kalıcı olarak çıkarılmış oluyor.
+       * Komponent boş alana bırakıldığında layout'un önceki haline gelmesi daha uygun olabilir.
+       */
       if (component.id == monitor.getItem().id) {
         removeComponent(component.id);
         return true;

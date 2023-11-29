@@ -57,17 +57,6 @@ export function updateLayout(
   return addChildToParentAtIndex(state, targetId, component, dropzoneIndex);
 }
 
-export function removeObjectById(array: IComponent[], id: string): IComponent[] {
-  _.forEach(array, (item, index) => {
-    if (item && item.id === id) {
-      array.splice(index, 1);
-    } else if (item && _.isArray(item.children)) {
-      removeObjectById(item.children, id);
-    }
-  });
-  return array;
-}
-
 function addChildToParentAtIndex(
   layout: IComponent[],
   parentId: string,
@@ -102,4 +91,15 @@ function findObjectById(array: IComponent[], id: string): IComponent | null {
   });
 
   return result;
+}
+
+export function removeObjectById(array: IComponent[], id: string): IComponent[] {
+  _.forEach(array, (item, index) => {
+    if (item && item.id === id) {
+      array.splice(index, 1);
+    } else if (item && _.isArray(item.children)) {
+      removeObjectById(item.children, id);
+    }
+  });
+  return array;
 }

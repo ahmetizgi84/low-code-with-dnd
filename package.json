@@ -26,7 +26,6 @@
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
-    "immer": "^10.0.3",
     "lodash": "^4.17.21",
     "lucide-react": "^0.289.0",
     "react": "^18.2.0",
